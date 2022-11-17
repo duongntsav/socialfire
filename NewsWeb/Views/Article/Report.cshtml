@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Report";
+}
+
+<script type="text/javascript">
+</script>
+
+
+<h4>Article list</h4>
+<form asp-action="Index">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    No
+                </th>
+                <th>
+                    Domain
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.article1List)
+            {
+            <tr>
+                <td>
+                </td>
+                <td>
+                    
+                    @item.Domain
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+
+
+</form>
+
+

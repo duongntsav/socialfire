@@ -1,0 +1,145 @@
+﻿@model IEnumerable<NewsWeb.Models.Article>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<script type="text/javascript">
+    (function ($) {
+        function Index() {
+            var $this = this;
+            function initialize() {
+
+                $(".popup").on('click', function (e) {
+                    modelPopup(this);
+                });
+
+                $(".popup2").on('click', function (e) {
+                    modelPopup(this);
+                });
+
+                function modelPopup(reff) {
+                    var url = $(reff).data('url');
+
+                    $.get(url).done(function (data) {
+                        debugger;
+                        $('#modal-view-article').find(".modal-dialog").html(data);
+                        $('#modal-view-article > .modal', data).modal("show");
+                    });
+                }
+
+
+                $('select').keypress(function (e) {
+                    // If the user presses the "Enter" key on the keyboard
+                    if (event.key === "Enter") {
+                        // Cancel the default action, if needed
+                        event.preventDefault();
+                        // Trigger the button element with a click
+                        $(".btn-primary").click();
+                    }
+                });
+            }
+
+            $this.init = function () {
+                initialize();
+            };
+        }
+        $(function () {
+            var self = new Index();
+            self.init();
+        });
+    }(jQuery));
+
+
+
+</script>
+
+
+<h4>Article list</h4>
+
+<form asp-action="Index">
+    <table class="table">
+        <thead>
+            <tr>
+                <td width="35%">
+                    @Html.DropDownList("site", ViewBag.siteList as SelectList, new { @class = "form-control" })
+                </td>
+                <td width="35%">
+                    @Html.DropDownList("subject", ViewBag.subjectList as SelectList, new { @class = "form-control" })
+                </td>
+                <td>
+                    <div class="form-group">
+                        <input type="submit" value="Chọn" class="btn btn-primary" />
+                    </div>
+                </td>
+                <td>
+                </td>
+            </tr>
+        </thead>
+    </table>
+
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th width="35%">
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubjectName)
+                        <br />
+                        @Html.DisplayFor(modelItem => item.Date)
+                        <br />
+                        @Html.DisplayFor(modelItem => item.Title)
+                        <br />
+                        <img src="@Html.DisplayFor(modelItem => item.Image)" width="200" />
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                        <br />
+                        Source: @Html.DisplayFor(modelItem => item.Url)
+                        <br />
+                        Image: @Html.DisplayFor(modelItem => item.Image)
+                    </td>
+                    <td>
+                        <a class="btn btn-primary popup" data-url="Article/ViewDetails/@Html.DisplayFor(modelItem => item.No)" data-toggle="modal" data-target="#modal-view-article" id="ArticleModel"> <i class="bi bi-cup-hot-fill"></i> <i class="fa fa-plus"></i></a>
+                        <partial name="_Modal" />
+
+                        <a asp-action="Details" asp-route-id="@item.No">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+@{
+
+    Func<int?, string> generateUrl = (int? _page) =>
+    {
+        return Url.ActionLink("Index", null, new { page = _page });
+    };
+
+    ViewBag.generateUrl = generateUrl;
+
+    var datapaging = new
+    {
+        currentPage = ViewBag.currentPage,
+        countPages = ViewBag.totalPages,
+        generateUrl = generateUrl
+    };
+}
+
+<partial name="_Paging" model="@datapaging" />

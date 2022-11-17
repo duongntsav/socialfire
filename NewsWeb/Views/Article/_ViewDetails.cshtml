@@ -1,0 +1,46 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model NewsWeb.Models.Article
+
+<!--Modal Body Start-->
+
+<div class="modal-content" style="width: 900px">
+
+    <!--Modal Header Start-->
+    <div class="modal-header">
+        <h4 class="modal-title">View Detail</h4>
+    </div>
+    <!--Modal Header End-->
+
+
+    <div>
+        <dl class="row">
+            <dd class="col-sm-12">
+                @Html.DisplayFor(model => model.Title)
+                <br />
+                <i>@Html.DisplayFor(model => model.Date)</i>
+            </dd>
+            <dd class="col-sm-12">
+                <img src="@Html.DisplayFor(model => model.Image)" height="200" />
+            </dd>
+            <dd class="col-sm-12">
+                <b>@Html.DisplayFor(model => model.Description) </b>
+            </dd>
+            <dd class="col-sm-12">
+                <!--
+     <span style="white-space: pre-line"> @Html.DisplayFor(model => model.Content)</span>
+        -->
+            </dd>
+            <dd class="col-sm-12">
+                @Html.Raw(@Model.ContentHtml)
+            </dd>
+        </dl>
+    </div>
+
+
+
+    <!--Modal Body End-->
