@@ -273,7 +273,10 @@ namespace SiteCrawlerApp
 
                         List<List<string>> dataList = EPPlusUtil.ReadExcelSheet(package, 0);
                         log.Info("STEP 1: passExcelData run");
+                        
                         // release memory
+                        // saveChange has cache so reset
+                        MainController.loadData();
                         MainController.resetProcessData();
                         MainController.passExcelData(dataList);
                         // release memory
