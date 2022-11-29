@@ -108,6 +108,7 @@ namespace SiteCrawlerApp.Controller
                 // DbConnection that is already opened
                 // dbcontext = new DataContext(connection, false);
 
+                DataContext = null;
                 DataContext = new DataContext();
 
                 // Passing an existing transaction to the context
