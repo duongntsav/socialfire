@@ -539,7 +539,7 @@ namespace SiteCrawlerApp.Controller
                                     site.Updated = DateTime.Now;
                                     DataContext.Entry(site).State = EntityState.Modified;
 
-                                    // DataContext.SaveChanges();
+                                    DataContext.SaveChanges();
                                 }
 
 
@@ -564,7 +564,7 @@ namespace SiteCrawlerApp.Controller
                     }
                 }
                 // Now set here
-                DataContext.SaveChanges();
+                // DataContext.SaveChanges();
             }
             catch (Exception ex)
             {
