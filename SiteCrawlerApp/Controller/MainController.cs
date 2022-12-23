@@ -115,7 +115,7 @@ namespace SiteCrawlerApp.Controller
                 // context.Database.UseTransaction(transaction);
                 {
                     sites = DataContext.SiteSet.OrderBy(s => s.Domain).ToList<Site>();
-                    subjects = DataContext.SubjectSet.ToList<Subject>();
+                    subjects = DataContext.SubjectSet.OrderBy(s => s.Order).ToList<Subject>();
                     codeLists = DataContext.CodeListSet.ToList<CodeList>();
 
                     // this.Articles = dbcontext.CrawArticleSet.ToList<Article>();
