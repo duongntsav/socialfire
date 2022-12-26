@@ -129,6 +129,7 @@ namespace SiteCrawlerApp.Common
                 {
                     List<HtmlNode> childList2 = getAllChild(n);
                     childList.AddRange(childList2);
+                    childList.Add(n);
                 }
                 else
                 {
